@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  {% if form.errors %}
+    <p class="error"> Sorry, that's not a valid username or password </p>
+  {% endif %}
+
+  <form action="/clinician/auth/" method="post"> {% csrf_token %}
+    <label for="username">Username: </label>
+    <input type="text" name="username" value="" id="username">
+    <label for="password">Password: </label>
+    <input type="password" name="password" value="" id="password">
+
+    <input type="submit" value="login"/>
+  </form>
+{% endblock %}
+<!-- {% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+  <script src = {% static "scripts/login.js" %}></script>
+</head>
+
+<body>
+  <div>
+      Welcome! <p>
+      Username: <input type="text" name="user" id="username"></input><br>
+      Password: <input type="password" name="password" id="password"></input><br>
+      <button id="login-button">Login</button>
+</div>
+</body>
+</html> -->

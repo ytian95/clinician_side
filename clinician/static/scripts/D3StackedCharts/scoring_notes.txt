@@ -1,0 +1,25 @@
+Notes:
+
+- Renames "dev milestones" to "Development Milestones" to be consistent
+	with SWYC naming
+
+- This one has the PPSC, the BPSC has multiple scoring parts, so the score
+	should be in an array
+	
+- For the Parent's Observations of Social Interaction POSI,
+	The scoring says that if 3+ of the right 3 options are checked,
+	then it is a positive. I've translated this into numbers, where
+	the leftmost response is 0, the next is 1, etc until the rightmost
+	response is a 4.
+	- Responses that have more checks will be inputted into a list
+
+- Parent Concerns, anything that is responded as "somewhat" or "very much"
+	are flagged. "not at all" = 0, "somewhat" = 1, "very much" = 2
+	- The score for this section is just adding the values, Really has no values
+	- Though a "score" of >= 1 will indicate that the parent has mentioned they
+		have concerns
+		
+- Family Questions. I've said yes = 1 and no = 0, though this can be changed
+	- The family questions are broken into 5 parts, so the score will be an 
+		array with : [tobacco, substance abuse, food-insecure, depression, domestic violence]
+		

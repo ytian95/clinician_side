@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ul>
+  {% for name in entries %}
+    <li> <a href="/clinician/{{name}}/">{{name}} has completed the SWYC </a></li>
+  {% endfor %}
+</ul>
+  <p> Click <a href="/clinician/logout/">here</a> to logout.</p>
+
+{% endblock %}
