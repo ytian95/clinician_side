@@ -75,27 +75,6 @@ def logout(request):
 	auth.logout(request)
 	return render_to_response("clinician/login.html")
 
-# def register(request):
-# 	if request.user.is_authenticated():
-# 		return redirect("clinician/loggedin")
-# 	registration_form = ClinicianRegistrationForm()
-# 	if request.method == "POST":
-# 		form = ClinicianRegistrationForm(request.POST)
-# 		if form.is_valid():
-# 			logger.info("FORM IS VALID")
-# 			datas = {}
-# 			datas["username"] = form.cleaned_data["username"]
-# 			datas["email"] = form.cleaned_data["email"]
-# 			datas["password1"] = form.cleaned_data["password1"]
-#
-# 			salt = hashlib.sha1(str(random.random()).encode("utf8")).hexdigest()[:5]
-# 			usernamesalt = datas["username"]
-# 			if isinstance(usernamesalt, unicode):
-# 				usernamesalt = usernamesalt.encode("utf8")
-# 			datas["activation_key"] = hashlib.sha1(salt + usernamesalt).hexdigest()
-# 			#key_expires = datetime.datetime.today() + datetime.timedelta(2)
-#
-
 def register_user(request):
 	args = {}
 	args.update(csrf(request))
