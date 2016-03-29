@@ -84,18 +84,85 @@ html, body {
 
 .content {
   max-width: 1080px;
+  justify-content: center;
 }
 
 .mdl-layout {
 	align-items: center;
   justify-content: center;
+  text-align: center;
+}
+
+.login-card {
+  text-align: center;
 }
 
 .mdl-layout__content {
-	padding: 24px;
+	/*padding: 24px;*/
 	flex: none;
+  width: 100%;
+  /*float: right;*/
 }
 
+.charts {
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+              -ms-grid-row-align: center;
+          align-items: center;
+}
+
+.cards {
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+              -ms-grid-row-align: flex-start;
+          align-items: flex-start;
+  -webkit-align-content: flex-start;
+      -ms-flex-line-pack: start;
+          align-content: flex-start;
+}
+
+.cards .separator {
+  height: 32px;
+}
+
+.cards .mdl-card__title.mdl-card__title {
+  color: white;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.cards ul {
+  padding: 0;
+}
+
+.cards h3 {
+  font-size: 1em;
+}
+
+.login-card .mdl-card__title {
+  min-height: 200px;
+  background-position: 90% 100%;
+  background-repeat: no-repeat;
+}
+
+.cards .mdl-card__actions a {
+  color: #00BCD4;
+  text-decoration: none;
+}
+
+.content-detail .charts .content-padding {
+  display: table-row;
+  vertical-align: middle;
+}
+
+.content-padding {
+  width:100px;
+  width: 50%;
+}
+/*
+.login-card {
+  margin: auto;
+}*/
 /*body {
   text-align: center;
 }

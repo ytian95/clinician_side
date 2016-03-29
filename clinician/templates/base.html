@@ -42,8 +42,12 @@
       </nav>
     </div>
     <main class="mdl-layout__content mdl-color--grey-100">
-      <div id="content" class="content mdl-grid">
-        {% block content %} {% endblock %}
+      <div id="content" class="content mdl-grid content-grid">
+        <div class="mdl-cell--1-col mdl-color--grey-100"></div>
+        <div class="charts mdl-cell">
+          {% block content %} {% endblock %}
+        </div>
+        <div class="mdl-cell--1-col mdl-color--grey-100"></div>
       </div>
     </main>
   </div>
