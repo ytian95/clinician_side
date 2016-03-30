@@ -1,35 +1,63 @@
 {% extends "base.html" %}
+{% load material_form %}
 
 {% block header %}<h1>Register</h1>{% endblock %}
-{% block content %}
 
-<div class="login-card mdl-card mdl-shadow--6dp"> <!-- mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop -->
+{% block content %}
+<div class="charts mdl-cell mdl-cell--6-col">
+<div class="register-card mdl-card-wide mdl-shadow--6dp"> <!-- mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop -->
   <div class="mdl-card__title mdl-card--expand mdl-color--primary mdl-color-text--white">
     <h2 class="mdl-card__title-text">register</h2>
   </div>
   <div class="mdl-card__supporting-text">
       <form class="form-signup" action="/clinician/register/" method="POST"> {% csrf_token %}
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="username" name="username" value=""/>
-          <label class="mdl-textfield__label" for="username">Username</label>
+        {% form form=form %}
+            {% part form.first_name prefix %}<i class="mdi-action-account-box prefix"></i>{% endpart %}
+            {% part form.last_name prefix %}<i class="mdi-action-account-box prefix"></i>{% endpart %}
+            {% part form.username prefix %}<i class="mdi-action-account-box prefix"></i>{% endpart %}
+            {% part form.email prefix %}<i class="mdi-communication-email prefix"></i>{% endpart %}
+            {% part form.password1 prefix %}<i class="mdi-action-lock-open prefix"></i>{% endpart %}
+        {% endform %}
+
+        <!-- <div class="top-row-left-field registration-box mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" id="username" name="username" value="">{{ form.first_name }}</input>
+          <label class="mdl-textfield__label" for="first_name">First name</label>
         </div>
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="password" id="password" name="password" value = ""/>
-          <label class="mdl-textfield__label" for="password">Password</label>
+        <div class="top-row-right-field registration-box mdl-textfield mdl-js-textfield">
+          <label class="mdl-textfield__label" for="last_name">Last name</label>
+          {{ form.last_name }}
         </div>
+        <div class="middle-field registration-box mdl-textfield mdl-js-textfield">
+          <label class="mdl-textfield__label" for="email">Email</label>
+          {{ form.email }}
+        </div>
+        <div class="middle-field registration-box mdl-textfield mdl-js-textfield">
+          <label class="mdl-textfield__label" for="email">username</label>
+          {{ form.username }}
+        </div>
+        <div class="bottom-row-left-field registration-box mdl-textfield mdl-js-textfield">
+          <label class="mdl-textfield__label" for="password1">Password</label>
+          {{ form.password1 }}
+        </div>
+        <div class="bottom-row-right-field registration-box mdl-textfield mdl-js-textfield">
+          <label class="mdl-textfield__label" for="password2">Password confirmation</label>
+          {{ form.password2 }}
+        </div> -->
         <!-- <label for="username">Username: </label>
         <input type="text" name="username" value="" id="username">
         <label for="password">Password: </label>
         <input type="password" name="password" value="" id="password"> -->
 
          <div class="mdl-card__actions">
-           <input type="submit" value="login" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"/>
+           <input type="submit" name="registration" value="Create account" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"/>
          </div>
+
         <!-- <input type="submit" value="login"/> -->
       </form>
   </div>
 </div>
-
+</div>
+<!--
 
   <form class="form-signup" action="/clinician/register/" method="POST">{% csrf_token %}
     <p>
@@ -72,6 +100,6 @@
     </div>
     <br></br>
     <input type="submit" name="submit" class="btn btn-primary" value="Create account">
-</form>
+</form> -->
 
 {% endblock %}

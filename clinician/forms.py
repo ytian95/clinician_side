@@ -2,6 +2,10 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserProfile
+from django.template import Template
+from django.forms.formsets import formset_factory
+from material import Layout, Row, Column, Fieldset, Span2, Span3, Span5, Span6, Span10
+from material.fields import FormSetField
 
 import datetime
 
@@ -9,8 +13,19 @@ class ClinicianRegistrationForm(UserCreationForm):
     email = forms.EmailField(
                 required = True,
                 widget=forms.TextInput(attrs={'placeholder': 'E-mail address'}))
-    first_name = forms.CharField(required = True)
-    last_name = forms.CharField(required = True)
+    first_name = forms.CharField(
+                required = True,
+                widget=forms.TextInput(attrs={'placeholder': 'First name'}))
+    last_name = forms.CharField(
+                required = True,
+                widget=forms.TextInput(attrs={'placeholder': 'Last name'}))
+
+    layout = Layout(
+        Row("first_name", "last_name"),
+        "username",
+        "email",
+        Row("password1", "password2")
+    )
 
     class Meta:
         model = User

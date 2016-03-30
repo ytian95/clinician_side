@@ -82,6 +82,10 @@ html, body {
   margin-right: 32px;
 }
 
+.mdl-navigation__link {
+  text-align: left;
+}
+
 .content {
   max-width: 1080px;
   justify-content: center;
@@ -90,12 +94,11 @@ html, body {
 .mdl-layout {
 	align-items: center;
   justify-content: center;
-  text-align: center;
 }
-
+/*
 .login-card {
   text-align: center;
-}
+}*/
 
 .mdl-layout__content {
 	/*padding: 24px;*/
@@ -109,6 +112,7 @@ html, body {
       -ms-flex-align: center;
               -ms-grid-row-align: center;
           align-items: center;
+  margin:auto;
 }
 
 .cards {
@@ -140,7 +144,7 @@ html, body {
 }
 
 .login-card .mdl-card__title {
-  min-height: 200px;
+  min-height: 100px;
   background-position: 90% 100%;
   background-repeat: no-repeat;
 }
@@ -158,6 +162,14 @@ html, body {
 .content-padding {
   width:100px;
   width: 50%;
+}
+
+.mdl-card__supporting-text {
+  box-sizing: initial;
+}
+
+.mdl-card__title {
+  width: 100%;
 }
 /*
 .login-card {
