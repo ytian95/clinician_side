@@ -7,19 +7,17 @@
 <head>
   <title>
     {% block title %}
-      Providers Side
+    Providers Side
     {% endblock %}
   </title>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   {% include 'material/includes/material_css.html' %}
-  {% include 'material/includes/material_js.html' %}
   <link rel="stylesheet" type="text/css" href="{% static 'clinician/styles.css' %}"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.cyan-light_blue.min.css">
-  <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 
+  {% block extrahead %}{% endblock %}
 </head>
 
 <body>
@@ -34,27 +32,26 @@
       <header class="drawer-header">{% block providername %}{% endblock %}</header>
       <nav class="navigation mdl-navigation mdl-color--blue-grey-800">
         {% block drawer %}
-          <a class="mdl-navigation__link" href="/clinician/login"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">equalizer</i>Home</a>
+          <a class="mdl-navigation__link" href="/clinician/login"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
           <a class="mdl-navigation__link" href="/clinician/login"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">account_circle</i>Login</a>
           <a class="mdl-navigation__link" href="/clinician/register"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">add</i>Register</a>
           <a class="mdl-navigation__link" href="/admin/"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">supervisor_account</i>Admin</a>
           <!-- <div class="mdl-layout-spacer"></div> -->
-
-          <!-- <ul>
-            <li><a href="/clinician/login">login</a></li>
-            <li><a href="/admin/">admin</a></li>
-          </ul> -->
         {% endblock %}
       </nav>
     </div>
     <main class="mdl-layout__content mdl-color--grey-100">
       <div id="content" class="content mdl-grid content-grid">
-
-            {% block content %}
-              {% form %}{% endform %}
-            {% endblock %}
-
-</div>
+        {% block content %}
+        {% form %}{% endform %}
+        {% endblock %}
+      </div>
     </main>
   </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+  {% include 'material/includes/material_js.html' %}
+  <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+  {% block extrajs %}{% endblock %}
 </body>

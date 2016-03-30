@@ -29,6 +29,8 @@ logger = logging.getLogger(__name__)
 #	 return HttpResponse(template.render(context, request))
 
 def login(request):
+	if request.user.is_authenticated():
+		return HttpResponseRedirect("/clinician/loggedin")
 	c = {}
 	c.update(csrf(request))
 	return render_to_response("clinician/login.html", c)

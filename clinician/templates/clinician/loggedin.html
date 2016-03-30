@@ -1,11 +1,38 @@
 {% extends "base.html" %}
 
-{% block content %}
-<ul>
-  {% for name in entries %}
-    <li> <a href="/clinician/{{name}}/">{{name}} has completed the SWYC </a></li>
-  {% endfor %}
-</ul>
-  <p> Click <a href="/clinician/logout/">here</a> to logout.</p>
+{% block header %}<h1>Welcome</h1>{% endblock %}
 
+{% block drawer %}
+  <a class="mdl-navigation__link" href="/clinician/login"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+  <a class="mdl-navigation__link" href="/clinician/logout"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">account_circle</i>Logout</a>
+  <a class="mdl-navigation__link" href="/clinician/register"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">add</i>Register</a>
+  <a class="mdl-navigation__link" href="/admin/"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">supervisor_account</i>Admin</a>
 {% endblock %}
+
+{% block content %}
+<div id="patient-card" class="patient-card mdl-card mdl-cell mdl-cell--12-col mdl-shadow--6dp">
+  <div class="patient-list-text mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+    <h4 id="patient-card-title" class="mdl-cell mdl-cell--12-col">Patients</h4>
+
+    {% for name in entries %}
+      <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+        <div class="section__circle-container__circle mdl-color--primary"></div>
+      </div>
+      <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+        <!-- may change to name: age  -->
+        <h5><a href="/clinician/{{name}}/">{{name}} has completed the SWYC </a></h5>
+      </div>
+    {% endfor %}
+
+  </div>
+  <!-- <div class="mdl-card__actions">
+    <button id="logout" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">>
+  </div> -->
+</div>
+{% endblock %}
+
+
+<!--
+  <script type="text/javascript">
+  </script>
+ -->

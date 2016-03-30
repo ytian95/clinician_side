@@ -171,6 +171,38 @@ html, body {
 .mdl-card__title {
   width: 100%;
 }
+
+.section__circle-container > .section__circle-container__circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  margin: 8px 0;
+}
+
+.patient-card .patient-list-text {
+  margin: 30px;
+}
+
+.patient-list-text {
+  margin: 30px;
+}
+
+#patient-card-title {
+  margin-bottom: 20px;
+  margin-top: 0px;
+}
+
+#patient-card {
+  margin: 30px;
+}
+
+.register-card {
+  background-color: #FFFFFF;
+}
+
+.section__text:not(:last-child) {
+  border-bottom: 1px solid rgba(0,0,0,.13);
+}
 /*
 .login-card {
   margin: auto;
