@@ -162,6 +162,6 @@ LOGGING = {
 EMAIL_USE_TLS = True
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "smithbaystateteam2015@gmail.com"
-EMAIL_HOST_PASSWORD = "baystate20152016"
+EMAIL_HOST_PASSWORD = "*******************"
 EMAIL_POST = 587
 DEFAULT_FROM_EMAIL = "smithbaystateteam2015@gmail"

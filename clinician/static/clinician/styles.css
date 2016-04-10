@@ -203,30 +203,3 @@ html, body {
 .section__text:not(:last-child) {
   border-bottom: 1px solid rgba(0,0,0,.13);
 }
-/*
-.login-card {
-  margin: auto;
-}*/
-/*body {
-  text-align: center;
-}
-
-#page {
-  width: 960px;
-  text-align: left;
-  margin: 10px auto 20px auto;
-  background-color: #BcBcBc;
-}
-
-#sidebar {
-  float: left;
-  width: 200px;
-  border: 1px solid;
-}
-
-#content {
-  float: left;
-  width: 600px;
-  border: 1px solid;
-  padding: 10px
-}*/

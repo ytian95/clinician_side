@@ -4,102 +4,74 @@
 {% block header %}<h1>Register</h1>{% endblock %}
 
 {% block content %}
+
 <div class="charts mdl-cell mdl-cell--6-col">
-<div class="register-card mdl-card-wide mdl-shadow--6dp"> <!-- mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop -->
-  <div class="mdl-card__title mdl-card--expand mdl-color--primary mdl-color-text--white">
-    <h2 class="mdl-card__title-text">register</h2>
-  </div>
-  <div class="register-text mdl-card__supporting-text">
+  <div class="register-card mdl-card-wide mdl-shadow--6dp"> <!-- mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop -->
+    <div class="mdl-card__title mdl-card--expand mdl-color--primary mdl-color-text--white">
+      <h2 class="mdl-card__title-text">register</h2>
+    </div>
+    <div class="register-text mdl-card__supporting-text">
       <form class="form-signup" action="/clinician/register/" method="POST"> {% csrf_token %}
+
         {% form form=form %}
-            {% part form.first_name prefix %}<i class="mdi-action-account-box prefix"></i>{% endpart %}
-            {% part form.last_name prefix %}<i class="mdi-action-account-box prefix"></i>{% endpart %}
-            {% part form.username prefix %}<i class="mdi-action-account-box prefix"></i>{% endpart %}
-            {% part form.email prefix %}<i class="mdi-communication-email prefix"></i>{% endpart %}
-            {% part form.password1 prefix %}<i class="mdi-action-lock-open prefix"></i>{% endpart %}
+          {% part form.first_name prefix %}<i class="mdi-action-account-box prefix"></i>{% endpart %}
+          {% part form.last_name prefix %}<i class="mdi-action-account-box prefix"></i>{% endpart %}
+          {% part form.username prefix %}<i class="mdi-action-account-box prefix"></i>{% endpart %}
+          {% part form.email prefix %}<i class="mdi-communication-email prefix"></i>{% endpart %}
+          {% part form.password1 prefix %}<i class="mdi-action-lock-open prefix"></i>{% endpart %}
         {% endform %}
 
-        <!-- <div class="top-row-left-field registration-box mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="username" name="username" value="">{{ form.first_name }}</input>
-          <label class="mdl-textfield__label" for="first_name">First name</label>
+        <div class="mdl-card__actions">
+          <input type="submit" name="registration" value="Create account" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"/>
         </div>
-        <div class="top-row-right-field registration-box mdl-textfield mdl-js-textfield">
-          <label class="mdl-textfield__label" for="last_name">Last name</label>
-          {{ form.last_name }}
-        </div>
-        <div class="middle-field registration-box mdl-textfield mdl-js-textfield">
-          <label class="mdl-textfield__label" for="email">Email</label>
-          {{ form.email }}
-        </div>
-        <div class="middle-field registration-box mdl-textfield mdl-js-textfield">
-          <label class="mdl-textfield__label" for="email">username</label>
-          {{ form.username }}
-        </div>
-        <div class="bottom-row-left-field registration-box mdl-textfield mdl-js-textfield">
-          <label class="mdl-textfield__label" for="password1">Password</label>
-          {{ form.password1 }}
-        </div>
-        <div class="bottom-row-right-field registration-box mdl-textfield mdl-js-textfield">
-          <label class="mdl-textfield__label" for="password2">Password confirmation</label>
-          {{ form.password2 }}
-        </div> -->
-        <!-- <label for="username">Username: </label>
-        <input type="text" name="username" value="" id="username">
-        <label for="password">Password: </label>
-        <input type="password" name="password" value="" id="password"> -->
 
-         <div class="mdl-card__actions">
-           <input type="submit" name="registration" value="Create account" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"/>
-         </div>
-
-        <!-- <input type="submit" value="login"/> -->
       </form>
+    </div>
   </div>
 </div>
-</div>
-<!--
-
-  <form class="form-signup" action="/clinician/register/" method="POST">{% csrf_token %}
-    <p>
-    	{{ form.errors }}
-    	{{ form.non_field_errors }}
-    </p>
-	<br>
-
-    <div class="fieldWrapper">
-        <label>First name</label><br>
-        {{ form.first_name }}
-    </div>
-    <br>
-    <div class="fieldWrapper">
-        <label>Last name</label><br>
-        {{ form.last_name }}
-    </div>
-    <br>
-    <div class="fieldWrapper">
-        {{ form.email.errors }}
-        <label>E-mail</label><br>
-        {{ form.email }}
-    </div>
-    <br>
-    <div class="fieldWrapper">
-    {{form.errors.values.0}}
-        <label>Username</label><br>
-        {{ form.username }}
-    </div>
-    <br>
-    <div class="fieldWrapper">
-        {{form.errors.values.1}}
-        <label>Password</label><br>
-        {{ form.password1 }}
-    </div>
-    <br>
-    <div class="fieldWrapper">
-        <label>Password again</label><br>
-        {{ form.password2 }}
-    </div>
-    <br></br>
-    <input type="submit" name="submit" class="btn btn-primary" value="Create account">
-</form> -->
 
 {% endblock %}
+<!--
+<form class="form-signup" action="/clinician/register/" method="POST">{% csrf_token %}
+  <p>
+    {{ form.errors }}
+    {{ form.non_field_errors }}
+  </p>
+  <br>
+
+  <div class="fieldWrapper">
+    <label>First name</label><br>
+    {{ form.first_name }}
+  </div>
+  <br>
+  <div class="fieldWrapper">
+    <label>Last name</label><br>
+    {{ form.last_name }}
+  </div>
+  <br>
+  <div class="fieldWrapper">
+    {{ form.email.errors }}
+    <label>E-mail</label><br>
+    {{ form.email }}
+  </div>
+  <br>
+  <div class="fieldWrapper">
+    {{form.errors.values.0}}
+    <label>Username</label><br>
+    {{ form.username }}
+  </div>
+  <br>
+  <div class="fieldWrapper">
+    {{form.errors.values.1}}
+    <label>Password</label><br>
+    {{ form.password1 }}
+  </div>
+  <br>
+  <div class="fieldWrapper">
+    <label>Password again</label><br>
+    {{ form.password2 }}
+  </div>
+  <br></br>
+  <input type="submit" name="submit" class="btn btn-primary" value="Create account">
+</form>
+ -->

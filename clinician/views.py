@@ -146,25 +146,3 @@ def get_patient_score(request, patient_name):
 	data = json.load(json_data)
 	json_data.close()
 	return JsonResponse(data)
-#
-# def loggedIn(request):
-#	 if request.POST:
-#		 uname = request.POST.getlist("username")[0]
-#		 pword = request.POST.getlist("password")[0]
-#
-#		 login_info = get_object_or_404(Login, username = uname)
-#		 if login_info.authenticatePassword(pword):
-#			 logger.debug("inside the post")
-#			 return render(request, "clinician/in.html", {"saying": "welcome," + uname + "!"})
-#
-#	 if request.GET:
-#		 uname = request.GET.getlist("username")[0]
-#		 pword = request.GET.getlist("password")[0]
-#
-#		 login_info = get_object_or_404(Login, username = uname)
-#		 if login_info.authenticatePassword(pword):
-#			 logger.debug("inside the post")
-#			 return render(request, "clinician/in.html", {"saying": "welcome, " + uname + "!"})
-#
-#	 logger.debug("not a post")
-#	 return render(request, "clinician/in.html", {"saying": "problem, wrong username or password"})
