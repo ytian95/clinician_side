@@ -1,0 +1,11 @@
+{% load static %}
+{% load staticfiles %}
+
+<link rel="import" href={% static "patient/app/bower_components/polymer/polymer.html" %}>
+
+<script src={% static "patient/app/bower_components/promise-polyfill-lite/Promise.js" %}></script>
+<script>
+if (!window.Promise) {
+  window.Promise = MakePromise(Polymer.Base.async);
+}
+</script>

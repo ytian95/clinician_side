@@ -1,0 +1,129 @@
+{% load static %}
+{% load staticfiles %}
+
+<link rel="import" href={% static "patient/app/bower_components/polymer/polymer.html" %}>
+<link rel="import" href={% static "patient/app/elements/bpsc-question/bpsc-question.html" %}>
+<link rel="import" href={% static "patient/app/bower_components/paper-toolbar/paper-toolbar.html" %}>
+    
+<dom-module id="bpsc-page">
+    <link rel="import" type="css" href={% static "patient/app/elements/bpsc-page/bpsc-page.css" %}>
+    <template>
+        <paper-header-panel mode="seamed">
+            <paper-toolbar>
+                <div id="headerName">eSWYC <span>{{version}}</span> months</div>
+            </paper-toolbar>
+        </paper-header-panel>
+        <div class="sName">Baby Pediatric Symptom Checklist</div>
+        <div id="bpscQuestions"></div>
+    </template>
+    <script>
+        HTMLImports.whenReady(function () {
+            Polymer({
+                is: 'bpsc-page',
+                properties: {
+                	questionsSet: {
+                    	type: Object,
+                    	notify: true,
+                    	value:{},
+                    	observer: 'pullQuestions',
+                	},
+                    questions: {
+                        type: Array,
+                        notify: true,
+                        value: [],
+                        observer: '_createQuestions',
+                    },
+                	answers: {
+                    	type: Array,
+                    	notify: true,
+                    	value: [],
+                	},
+                	version: {
+                    	type: Number,
+                    	notify: true,
+                	},
+                	answerOptions: {
+                    	type: Array,
+                    	notify: true,
+                    	value:[],
+                	},
+                	isSpanish: {
+            			type: Number,
+            			notify: true,
+            			value: 0,
+            		},
+                },
+                listeners: {
+        			'scoreChange': 'gatherScore',
+      			},
+                pullQuestions: function (data) {
+                    if (this.version){
+                        this.questions = [];
+                        swycAge=(String(this.version)).concat(" month");
+                        if (this.version < 18){
+                        	var options = "BPSC Answer Options";
+                        	this.answerOptions = 
+                        		this.questionsSet[swycAge]["questions"][options];
+                            this.questions= 
+                            	this.questionsSet[swycAge]["questions"]["BPSC"];
+                            
+                        }else{
+                        	var options = "PPSC Answer Options";
+                        	this.answerOptions = 
+                        		this.questionsSet[swycAge]["questions"][options];
+                            this.questions= 
+                            	this.questionsSet[swycAge]["questions"]["PPSC"];                            
+                        };
+                    };                      
+                    //console.log(this.questionsSet[swycAge]["questions"][options]);
+                    //console.log(swycAge);
+        			if(parseInt(this.isSpanish) === 1 ){
+        				if(this.version < 18){
+        					this.$$(".sName").innerHTML 
+        						= "Lista de Síntomas Pediátricos para Bebés";
+        				} else {
+        					this.$$(".sName").innerHTML 
+        						= "Lista de Síntomas Pediátricos para Niños en Preescolar";
+        				};
+        			} else {
+        				if(this.version < 18){
+        					this.$$(".sName").innerHTML = "Baby Pediatric Symptom Checklist";
+        				} else {
+        					this.$$(".sName").innerHTML 
+        						= "Preschool Pediatric Symptom Checklist";
+        				};
+        			};	
+         
+                },
+                _createQuestions: function(){
+                    if (this.version >= 18){
+                    	this.$$(".sName").innerHTML = 
+                    		"Preschool Pediatric Symptom Checklist";
+                    };      
+                    var counter = 0;          
+                    var questionContainer = document.getElementById("bpscQuestions");
+                    questionContainer.innerHTML = "";
+                    for(var i = 0; i < this.questions.length; i++){
+                        var newSCQuestion = document.createElement("bpsc-question");
+                        newSCQuestion.questionString = this.questions[i];
+                        newSCQuestion.options = this.answerOptions;
+                        if(counter%2 == 0) {
+                    		newSCQuestion.$$("#main").style.background = "#e1e1e1";
+                    	};
+                        questionContainer.appendChild(newSCQuestion);
+                        counter += 1;
+                    };
+                },
+            	gatherScore: function(){
+            		this.answers = []; //clear the answerArray
+            		// use document.querySelecotorAll() to get the elements.
+   					var answerList = document.querySelectorAll("bpsc-question"); 
+    				for( var i = 0; i < answerList.length; i++ ){
+    					// append answer from each questions to the answerArray
+    					this.answers.push(answerList[i].score); 
+    				};    			
+           		}        
+        	});
+        });
+    </script>
+</dom-module>

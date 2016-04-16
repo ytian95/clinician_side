@@ -1,0 +1,19 @@
+<!doctype html>
+{% load static %}
+{% load staticfiles %}
+
+<html>
+    <head>
+    	<script src={% static "patient/app/bower_components/webcomponentsjs/webcomponents.js" %}></script>
+        <link rel="import" href={% static "patient/app/bower_components/paper-header-panel" %}>
+		<link rel="import" href={% static "patient/app/bower_components/paper-button/paper-button.html" %}>
+		<link rel="import" href={% static "patient/app/elements/page-manager/page-manager.html" %}>
+        <link rel="stylesheet" href={% static "patient/app/styles/main.css">
+		
+		<script src={% static "patient/app/scripts/app.js" %}></script>
+    </head>
+    <body>
+        <page-manager></page-manager>
+    </body>
+
+</html>

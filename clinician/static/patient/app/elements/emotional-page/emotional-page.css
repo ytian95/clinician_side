@@ -1,0 +1,20 @@
+body {
+  background: #fafafa;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+paper-toolbar.paper-toolbar-0 {
+	background: #2875e2;
+}
+
+.sName{
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: green;
+}
+
+.qWrapper{
+    clear: both;
+}

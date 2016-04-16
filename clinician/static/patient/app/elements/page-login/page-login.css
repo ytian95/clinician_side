@@ -1,0 +1,67 @@
+paper-toolbar.paper-toolbar-0 {
+	background: #2875e2;
+}
+
+#name{
+    margin-top: 1%;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#dob{
+    margin-top: 3%;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#phone{
+    margin-top: 3%;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#dob2{
+    margin-top: 3%;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dobb {
+    clear: both;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.item {
+    width: 100px;
+}
+
+#langString {
+	width: 400px;
+	font-size: 120%;
+	margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    color: #808080;
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#languageSelect{
+	display: block;
+	width: 400px;
+    margin-top: 1%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 100%;
+}
+
+.langButton {
+	font-size: 120%;
+	font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}

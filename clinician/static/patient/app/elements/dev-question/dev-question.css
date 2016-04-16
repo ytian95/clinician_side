@@ -1,0 +1,21 @@
+#main {
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.devWrapper{
+    clear: both;
+}
+
+.questionString{
+    float: left;
+}
+
+.devButtons{
+    float: right;
+}
+
+.devButton{
+    margin-left: 22px;
+    font-size: 15px;
+}

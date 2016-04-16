@@ -8,16 +8,18 @@ admin.autodiscover()
 urlpatterns = [
     #url(r"^$", views.index, name="index"),
 
-    url(r"^login/$", "clinician.views.login"),
-    url(r"^auth/$", "clinician.views.auth_view"),
-    url(r"^logout/$", "clinician.views.logout"),
-    url(r"^loggedin/$", "clinician.views.loggedin"),
-    url(r"^invalid/$", "clinician.views.invalid_login"),
+    url(r"^clinician/login/$", "clinician.views.login"),
+    url(r"^clinician/auth/$", "clinician.views.auth_view"),
+    url(r"^clinician/logout/$", "clinician.views.logout"),
+    url(r"^clinician/loggedin/$", "clinician.views.loggedin"),
+    url(r"^clinician/invalid/$", "clinician.views.invalid_login"),
 
-    url(r"^register/$", "clinician.views.register_user"),
-    url(r"^register_success/$", "clinician.views.register_success"),
-	url(r"^confirm/(?P<activation_key>\w+)/$", "clinician.views.register_confirm"),
+    url(r"^clinician/register/$", "clinician.views.register_user"),
+    url(r"^clinician/register_success/$", "clinician.views.register_success"),
+	url(r"^clinician/confirm/(?P<activation_key>\w+)/$", "clinician.views.register_confirm"),
 
-    url(r"^(?P<patient_name>.*)/getpatientscore/$", "clinician.views.get_patient_score", name="patient_score"),
-    url(r"^(?P<patient_name>.*)/$", "clinician.views.patient_results", name="patient_results")
+    url(r"^clinician/(?P<patient_name>.*)/getpatientscore/$", "clinician.views.get_patient_score", name="patient_score"),
+    url(r"^clinician/(?P<patient_name>.*)/$", "clinician.views.patient_results", name="patient_results"),
+	
+	url(r"^patient/eswyc/$", "clinician.views.patient_eswyc")
 ]

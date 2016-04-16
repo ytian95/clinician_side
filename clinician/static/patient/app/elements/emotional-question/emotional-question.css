@@ -1,0 +1,23 @@
+#main {
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.emoWrapper{
+    clear: both;
+}
+
+.questionString{
+	font-weight: bold;
+    float: left;
+}
+
+.emoButtons{
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.emoButton{
+    margin-left: 15px;
+    font-size: 15px;
+}

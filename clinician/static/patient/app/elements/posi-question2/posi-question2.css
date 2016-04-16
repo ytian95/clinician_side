@@ -1,0 +1,23 @@
+#main {
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.posiWrapper{
+    clear: both;
+}
+
+.questionString{
+	font-weight: bold;
+    float: left;
+}
+
+.posiButtons{
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.posiButton{
+    margin-left: 15px;
+    font-size: 15px;
+}

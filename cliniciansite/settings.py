@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -34,6 +33,7 @@ INSTALLED_APPS = [
     "material",
     "material.frontend",
     "clinician.apps.ClinicianConfig",
+	"patient.apps.PatientConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,24 +53,41 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'cliniciansite.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+			os.path.dirname(os.path.dirname(__file__))+"/templates",
+			os.path.join(BASE_DIR, "clinician/templates").replace("\\", "/"),
+			os.path.join(BASE_DIR, "patient/templates").replace("\\", "/"),
+		],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.media',
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-            ],
+			],
+			# "loaders": [
+			    # 'django.template.loaders.filesystem.Loader',
+				# 'django.template.loaders.app_directories.Loader',
+			# ]
         },
     },
 ]
+
+# List of callables that know how to import templates from various sources.
+# TEMPLATE_LOADERS = (
+    # 'django.template.loaders.filesystem.Loader',
+    # 'django.template.loaders.app_directories.Loader',
+# )
 
 WSGI_APPLICATION = 'cliniciansite.wsgi.application'
 
@@ -165,3 +182,4 @@ EMAIL_HOST_USER = "smithbaystateteam2015@gmail.com"
 EMAIL_HOST_PASSWORD = "*******************"
 EMAIL_POST = 587
 DEFAULT_FROM_EMAIL = "smithbaystateteam2015@gmail"
+

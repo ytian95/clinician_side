@@ -1,0 +1,21 @@
+#main {
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.familyWrapper{
+    clear: both;
+}
+
+.questionString{
+    float: left;
+}
+
+.familyButtons{
+    float: right;
+}
+
+.familyButton{
+    margin-left: 22px;
+    font-size: 15px;
+}

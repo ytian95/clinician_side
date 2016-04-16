@@ -20,5 +20,7 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r"^clinician/", include("clinician.urls")),
+	url(r"^patient/", include("patient.urls")),
+	url(r"^eswyc/", include("clinician.urls")),
     url(r'^admin/', admin.site.urls),
 ]

@@ -1,0 +1,21 @@
+#main {
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.bpscWrapper{
+    clear: both;
+}
+
+.questionString{
+    float: left;
+}
+
+.bpscButtons{
+    float: right;
+}
+
+.bpscButton{
+    margin-left: 22px;
+    font-size: 15px;
+}

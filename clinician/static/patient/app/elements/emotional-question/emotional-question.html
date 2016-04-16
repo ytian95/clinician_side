@@ -1,0 +1,57 @@
+{% load static %}
+{% load staticfiles %}
+
+<link rel="import" href={% static "patient/app/bower_components/paper-radio-group/paper-radio-group.html" %}>
+<link rel="import" href={% static "patient/app/bower_components/paper-radio-button/paper-radio-button.html" %}>
+     
+<dom-module id="emotional-question">
+    <link rel="import" type="css" href={% static "patient/app/elements/emotional-question/emotional-question.css" %}>
+    <template>
+    	<div id="main">
+        	<div class="emoWrapper">
+            	<div class="questionString">{{questionString}}</div>
+            	<paper-radio-group id="emoButtons" selected="{{score}}" allow-empty-selection>
+                	<paper-radio-button class="emoButton" name="0"></paper-radio-button>
+                	<paper-radio-button class="emoButton" name="1"></paper-radio-button>
+                	<paper-radio-button class="emoButton" name="2"></paper-radio-button>
+                	<paper-radio-button class="emoButton" name="3"></paper-radio-button>                	
+                	<paper-radio-button class="emoButton" name="-1">Skip question
+                	</paper-radio-button>
+            	</paper-radio-group>
+       		</div>
+        </div>
+    </template>
+    <script>
+    Polymer({
+        is: 'emotional-question',
+        properties: {
+            questionString: {
+                type: String,
+                notify: true,
+                value: "",
+            },
+            options: {
+            	type: Array,
+            	notify: true,
+            	value: [],
+            	observer: "optionsChanged",
+            },
+            score: {
+                type: Number,
+                notify: true,
+                observer: "_scoreChanged",
+            },
+        },
+        optionsChanged: function(){
+        	var buttons = Polymer.dom(this.root).querySelectorAll("paper-radio-button")
+        	for(var i = 0; i < this.options.length; i++){
+        		textNode = document.createTextNode(this.options[i]);
+        		buttons[i].appendChild(textNode);        		
+        	};  	
+        },        
+        _scoreChanged: function(){
+            	this.fire('scoreChange');
+        },
+    });
+    </script>
+</dom-module>

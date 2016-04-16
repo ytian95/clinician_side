@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 
 def login(request):
 	if request.user.is_authenticated():
-		return HttpResponseRedirect("/clinician/loggedin")
+		return HttpResponseRedirect("/eswyc/clinician/loggedin")
 	c = {}
 	c.update(csrf(request))
 	return render_to_response("clinician/login.html", c)
@@ -42,9 +42,9 @@ def auth_view(request):
 
 	if user is not None:
 		auth.login(request, user)
-		return HttpResponseRedirect("/clinician/loggedin")
+		return HttpResponseRedirect("/eswyc/clinician/loggedin")
 	else:
-		return HttpResponseRedirect("/clinician/invalid")
+		return HttpResponseRedirect("/eswyc/clinician/invalid")
 
 def loggedin(request):
 	#todo
@@ -67,7 +67,7 @@ def loggedin(request):
 		#	 f.close()
 		#	 return render_to_response("clinician/loggedin.html",
 		#						 {"age": age})
-	return HttpResponseRedirect("/clinician/invalid")
+	return HttpResponseRedirect("/eswyc/clinician/invalid")
 	#return render_to_response("clinician/loggedin.html", {"age": os.getcwd()})
 
 def invalid_login(request):
@@ -123,7 +123,7 @@ def register_success(request):
 def register_confirm(request, activation_key):
 	#check if the user is already loggedin
 	if request.user.is_authenticated():
-		HttpResponseRedirect("clinician/loggedin")
+		HttpResponseRedirect("/eswyc/clinician/loggedin")
 
 	#check if there is a UserProfile which matches the activation key
 	user_profile = get_object_or_404(UserProfile, activation_key = activation_key)
@@ -146,3 +146,6 @@ def get_patient_score(request, patient_name):
 	data = json.load(json_data)
 	json_data.close()
 	return JsonResponse(data)
+	
+def patient_eswyc(request):
+	return render_to_response("clinician/index.html")

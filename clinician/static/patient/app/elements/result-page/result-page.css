@@ -1,0 +1,30 @@
+paper-toolbar.paper-toolbar-0 {
+	background: #2875e2;
+}
+
+#message {
+	background: #1E90FF;
+	width: 50%;
+	height: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 5%;
+	padding-bottom: 8%;
+	margin-top: 10%;
+	text-align: center;
+}
+
+.textLine {
+	background: #1E90FF;
+	padding-top: 5%;
+	margin: auto;
+	font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #FFFFFF;
+	font-size: 200%;
+}
+#getjson{
+    display: inline-block;
+    background-color: #2875e2;
+    color: white;
+    margin-left: 10%;
+}
