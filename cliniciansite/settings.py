@@ -1,3 +1,5 @@
+# settings.py
+# contains information on all the libraries used by Django
 """
 Django settings for cliniciansite project.
 
@@ -182,4 +184,3 @@ EMAIL_HOST_USER = "smithbaystateteam2015@gmail.com"
 EMAIL_HOST_PASSWORD = "*******************"
 EMAIL_POST = 587
 DEFAULT_FROM_EMAIL = "smithbaystateteam2015@gmail"
-

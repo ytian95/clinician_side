@@ -1,3 +1,6 @@
+# urls.py
+# The first level url redirection to a specific project
+
 """cliniciansite URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -20,7 +23,7 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r"^clinician/", include("clinician.urls")),
-	url(r"^patient/", include("patient.urls")),
+#	url(r"^patient/", include("patient.urls")),
 	url(r"^eswyc/", include("clinician.urls")),
     url(r'^admin/', admin.site.urls),
 ]

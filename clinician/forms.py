@@ -1,3 +1,8 @@
+# forms.py
+# The form used to house information on the fields of the registration form
+# used in the clinician interface
+# Uses material from django material as styling
+
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -9,6 +14,10 @@ from material.fields import FormSetField
 
 import datetime
 
+# The registration form used by the clinician interface. It contains information
+# that the form must include an Email Field, as well as one for their first name
+# and last name. The custom form uses the username and password fields provided
+# by the UserCreationForm, allowing for easier authentication
 class ClinicianRegistrationForm(UserCreationForm):
     email = forms.EmailField(
                 required = True,

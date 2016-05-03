@@ -1,3 +1,7 @@
+# views.py
+# Contains all the information on the pages of the entire interface such as
+# any actions of the page as well as what each page should display
+
 from django.shortcuts import get_object_or_404, render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader, RequestContext
@@ -28,6 +32,9 @@ logger = logging.getLogger(__name__)
 #	 context = {}
 #	 return HttpResponse(template.render(context, request))
 
+# Loads the login.html page. Checks if the user is already loggin in. If so, then
+# automatically redirects the user to the logged in page. Else would ask for the
+# user to login
 def login(request):
 	if request.user.is_authenticated():
 		return HttpResponseRedirect("/eswyc/clinician/loggedin")
@@ -35,6 +42,9 @@ def login(request):
 	c.update(csrf(request))
 	return render_to_response("clinician/login.html", c)
 
+# The page used to authenticate the user. If valid login information has been
+# provided then will redirect to the logged in page. Else would tell the user
+# an invalid login has been provided
 def auth_view(request):
 	username = request.POST.get("username", "")
 	password = request.POST.get("password", "")
@@ -46,6 +56,8 @@ def auth_view(request):
 	else:
 		return HttpResponseRedirect("/eswyc/clinician/invalid")
 
+# Gets the patient namse of all patients who have finished the SWYC and displays
+# the links to redirect to each data visualization
 def loggedin(request):
 	#todo
 	logger.info(os.getcwd())
@@ -70,13 +82,17 @@ def loggedin(request):
 	return HttpResponseRedirect("/eswyc/clinician/invalid")
 	#return render_to_response("clinician/loggedin.html", {"age": os.getcwd()})
 
+# Displays the invalid login page
 def invalid_login(request):
 	return render_to_response("clinician/invalid_login.html")
 
+# Loggs the user out and redirects to the login page
 def logout(request):
 	auth.logout(request)
 	return render_to_response("clinician/login.html")
 
+# Used to register the user. If a form has been rubmitted, then it will create
+# a user profile and send a confirmation email with an activation link
 def register_user(request):
 	args = {}
 	args.update(csrf(request))
@@ -84,7 +100,7 @@ def register_user(request):
 	if request.method == "POST":
 		form = ClinicianRegistrationForm(request.POST)
 		args["form"] = form
-		if form.is_valid():
+		if form.is_valid() && form.cleaned_data["email"].contains("@baystatehealth.org"):
 			form.save() #save user to database if form is valid
 
 			username = form.cleaned_data["username"]
@@ -117,9 +133,12 @@ def register_user(request):
 		logger.error("this is not a post request")
 	return render_to_response("clinician/register.html", args, RequestContext(request))
 
+# Page that shows following a successful registration. Does not say if the account
+# has been authenticated
 def register_success(request):
 	return render_to_response("clinician/register_success.html")
 
+# Activated the user based on the activation key in the link
 def register_confirm(request, activation_key):
 	#check if the user is already loggedin
 	if request.user.is_authenticated():
@@ -137,15 +156,18 @@ def register_confirm(request, activation_key):
 	user.save()
 	return render_to_response("clinician/confirm.html")
 
+# displays the data visualization of the patient
 def patient_results(request, patient_name):
 	if request.user.is_authenticated():
 		return render(request, "clinician/stackedCharts.html", {"name": patient_name})
 
+# returns the json of the patient data
 def get_patient_score(request, patient_name):
 	json_data = open("clinician\\static\\patients\\" + patient_name.replace(" ", "_") + ".JSON")
 	data = json.load(json_data)
 	json_data.close()
 	return JsonResponse(data)
-	
+
+# displas the patient interface
 def patient_eswyc(request):
 	return render_to_response("clinician/index.html")
