@@ -1,24 +1,23 @@
+// This js file is to help with 
 var data=null;
 var month =-1;
 var listOfSections; // list of sections in the current SWYC
 
 function getMonthAndSections(d){
-    month= Object.keys(d)[0];
+    month= Object.keys(d)[0]; 
     //console.log(month);
-    listOfSections= Object.keys(d[month]);
+    listOfSections= Object.keys(d[month]);  
     //console.log(listOfSections );
 }
 
-//d3.json("sample_Score.json", function (error, json) {
-//clinician/static/scripts/D3StackedCharts/
-d3.json("scoring.json", function (error, json) {
+d3.json("sample_Score.json", function (error, json) {
 if (error) return console.warn (error);
   data=json;
   //assign global variables : sections and month
   getMonthAndSections(data);
   //change score to Integer
   scoreInteger= type(data);
-
+  
 });
 
 
@@ -165,3 +164,4 @@ var dataset = dataset.map(function (group) {
     svg.append('g')
     .attr('class', 'axis')
     .call(yAxis);
+

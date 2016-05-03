@@ -1,0 +1,104 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../emotional-question/emotional-question.html">
+    
+<dom-module id="emotional-page">
+    <link rel="import" type="css" href="emotional-page.css">
+    <template>
+        <paper-header-panel mode="seamed">
+            <paper-toolbar>
+                <div id="headerName">eSWYC <span>{{version}}</span> months</div>
+            </paper-toolbar>
+        </paper-header-panel>
+        <div class="sName">Emotional Changes With A New Baby</div>
+        <div id="emotionalQuestions">
+        </div>
+    </template>
+    <script>
+    HTMLImports.whenReady(function () {
+        Polymer({
+            is: 'emotional-page',
+            properties: {
+                questionsSet: {
+                    type: Object,
+                    notify: true,
+                    value:{},
+                },
+                questions: {
+                    type: Array,
+                    notify: true,
+                    value:[],
+                    observer: '_createQuestions',
+                },
+                answers: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                },
+                version: {
+                    type: Number,
+                    notify: true,
+                    observer: 'pullQuestions',
+				},
+				answerOptions: {
+                    type: Array,
+                    notify: true,
+                    value:[],
+                },
+                isSpanish: {
+            		type: Number,
+            		notify: true,
+            		value: 0,
+            	},
+                                
+            },
+        	listeners: {
+        		'scoreChange': 'gatherScore',
+      		},
+            pullQuestions: function () {
+               if (this.version){
+                    this.questions = [];
+                    var sectionName = "Emotional Changes With A New Baby";
+                    var options = "Emotional Changes Answer Options";
+                    swycAge=(String(this.version)).concat(" month");
+                    this.answerOptions = this.questionsSet[swycAge]["questions"][options];
+                    this.questions = this.questionsSet[swycAge]["questions"][sectionName];
+                }; 
+        		if(parseInt(this.isSpanish) === 1 ){
+        			this.$$(".sName").innerHTML = "Cambios Emocionales con un Nuevo Bebé";
+        		} else {
+        			this.$$(".sName").innerHTML = "Emotional Changes with a New Baby";	
+        		};        
+            },
+            _createQuestions: function(){
+            	var questionContainer = this.$$("#emotionalQuestions");
+            	questionContainer.innerHTML = "";
+            	var counter = 0;
+                for(var i = 0; i < this.questions.length; i++){
+                    var newEmoQuestion = document.createElement("emotional-question");
+                    newEmoQuestion.questionString = this.questions[i];
+                    newEmoQuestion.options = this.answerOptions[i];
+                    if(counter%2 == 0) {
+                    	newEmoQuestion.$$("#main").style.background = "#e1e1e1";
+                    };
+                    questionContainer.appendChild(newEmoQuestion);
+                    counter += 1;
+                };
+            },
+            gatherScore: function(){
+            	this.answers = []; //clear the answerArray
+            	// use document.querySelecotorAll() to get the elements.
+   				var answerList = 
+   					Polymer.dom(this.root).querySelectorAll("emotional-question");   				 
+    			for( var i = 0; i < answerList.length; i++ ){
+    				// append answer from each questions to the answerArray
+    				this.answers.push(answerList[i].score); 
+    			};    			
+    			//console.log(this.answers);
+            }      
+        });
+    });
+
+    </script>
+</dom-module>

@@ -1,5 +1,4 @@
-//d3.csv('ScoringMilestone.csv', function(d) {
-d3.csv('clinician/static/scripts/D3StackedCharts/ScoringMilestone.csv', function(d) {
+d3.csv('ScoringMilestone.csv', function(d) {
          //create a key
     var swycMonth=d.month;
     console.log("swyc month:" + swycMonth);

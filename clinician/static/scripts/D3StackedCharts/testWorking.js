@@ -52,7 +52,7 @@ function visualizeListResponses(sectionName){
         ul_for_question.appendChild(li_for_question);
         var span_for_question = document.createElement("span");
         span_for_question.className= "badge";
-        li_for_question.appendChild(span_for_question);
+        li_for_question.appendChild(span_for_question); 
          //add question
         var questionText= document.createTextNode(questionAndAnswer[0]);
         li_for_question.appendChild(questionText);
@@ -76,14 +76,14 @@ function visualizeListResponses(sectionName){
                     img.src = "domesticViolence.png";
                 }
             }
-
+            
             li_for_question.appendChild(img);
         }
 
         //add option selected to the button display
         drawButtonOption(sectionName,qNumber,span_for_question,questionInSection.length);
     }
-
+        
 }
 
 
@@ -103,7 +103,7 @@ function drawStackedChart(sectionName){
 
 	width = 1000 - margins.left - margins.right ,
     height = 200 - margins.top - margins.bottom;
-
+    
     if (sectionName=='PPSC') {
         //console.log(true);
 		//TODO store questions
@@ -120,7 +120,7 @@ function drawStackedChart(sectionName){
 	        }],
 	    }
 
-	    ]
+	    ]	  
     }else if (sectionName=='Development Milestones'){
 
         //read the scoring file
@@ -144,7 +144,7 @@ function drawStackedChart(sectionName){
         }
         //separate domain for PPSC
 
-        ]
+        ]        
     }else if (sectionName=='BPSC') {
 
      dataset = [{
@@ -193,7 +193,7 @@ function drawStackedChart(sectionName){
             }],
         }
 
-        ]
+        ]        
 
     }
 
@@ -242,7 +242,7 @@ function drawStackedChart(sectionName){
             return d.x + d.x0;
         });
     }),
-
+      
     //get width of the parent element in pixels
     // parentWidth=mydiv.style.width
     xScale = d3.scale.linear()
@@ -347,7 +347,7 @@ function drawStackedChart(sectionName){
     svg.append('g')
     .attr('class', 'axis')
     .call(yAxis);
-
+    
     //set offset for new drawing
 
 }
@@ -355,9 +355,9 @@ function drawStackedChart(sectionName){
 
 
 function getMonthAndSections(d){
-	month= Object.keys(d)[0];
+	month= Object.keys(d)[0]; 
 	//console.log(month);
-	listOfSections= Object.keys(d[month]);
+	listOfSections= Object.keys(d[month]);	
 	//console.log(listOfSections );
 }
 
@@ -372,7 +372,7 @@ d3.json("scoring.json", function (error, json) {
 	    //console.log(listOfSections[i]);
 	    //get score
 	    //score=data[month][listOfSections[i]]["score"][0];
-	    //console.log(score);
+	    //console.log(score); 
         //add section titles and buttons about response and summary if required
         drawSectionTitle(listOfSections[i]);
         if (listOfSections[i]=='PPSC' || listOfSections[i]=='BPSC' || listOfSections[i]=='Development Milestones' || listOfSections[i]=='Emotional Changes With A New Baby'){
@@ -384,5 +384,6 @@ d3.json("scoring.json", function (error, json) {
 
         }
 	}
-
+  
 });
+

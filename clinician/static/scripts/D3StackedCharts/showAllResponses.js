@@ -1,7 +1,11 @@
+//This js file is to show the original questions and responses selected
+
 //create Option Header
     //one row for the header options
 function createRadioOptions(panel_table,optionType){
 	var table_row = document.createElement("tr");
+    table_row.id="row_border" //for border
+    table_row.style.backgroundColor="#ebebe0";
 	panel_table.appendChild(table_row);
 	//fill row with data
     for (var i=0; i<=optionType.length;i++){
@@ -25,8 +29,15 @@ function createRadioOptions(panel_table,optionType){
 }
 
 //create a row of question and options
-function createTableRow(panel_table,question_Answer,optionType,radioOrNot){
+//radioOrNot: radio button or Check box
+//Odd  is for background color 
+function createTableRow(panel_table,question_Answer,optionType,radioOrNot,Odd){
  	var table_row = document.createElement("tr");
+    //table_row.id="row_border"
+    //if odd color grey
+    if (Odd){
+        table_row.style.backgroundColor="#d6d6c2";
+    }
     panel_table.appendChild(table_row);
     //number of radio buttons needed depends on input type
     for (var i=0; i<=optionType.length;i++){
@@ -41,31 +52,50 @@ function createTableRow(panel_table,question_Answer,optionType,radioOrNot){
     		//add radio button
     		//TODO select the right button
     		table_data.className= "textToCenter";
-    		var label_radio_input =document.createElement("input");
+
+    		var label_radio_input =document.createElement("label");
+            var inline_input =document.createElement("input");
+            label_radio_input.appendChild(inline_input);
+           
+             
     		//some questions have checkboxes instead of radio
     		if (radioOrNot){
-    			label_radio_input.setAttribute("type", "radio");
+    			inline_input.setAttribute("type", "radio");
+                // same name for all options in a row unless multiple answers can be selected
+                inline_input.name=question_Answer[0];
+            // select the radio button for patient answer
+            // if patient answer == and 0 is the first option so i+1
+            // some sections have multiple answers
+                if (question_Answer[1]==(i-1)){
+                    inline_input.setAttribute("checked", "checked");
+                }                
 
     		}else {
-    			label_radio_input.setAttribute("type", "checkbox");
+                //checkbox means multiple answers can be selected
+    			inline_input.setAttribute("type", "checkbox");
+                //console.log(question_Answer[1]);
+                if (question_Answer[1].indexOf(i-1) >= 0){
+
+                    inline_input.setAttribute("checked", "checked");
+                }
 
     		}
     		
     		table_data.appendChild(label_radio_input);
+
     	}
     }
 }
 
 
-//display all questions and answer for the array
-function displayQuestionsAndAnswers(questionsList,optionType,panelHeading,radioOrNot){
+//display all questions and answer for a given question list
+function displayQuestionsAndAnswers(questionsList,optionType,containerDiv,panelHeading,radioOrNot){
 	//add a container for questions
 	var div_for_all_Responses = document.createElement("div");
 	div_for_all_Responses.className= "display_box_for_all_responses";
     //the summary button is preselected so responses are hidden
     div_for_all_Responses.style.display = 'none';
-    var bodyDOM = document.getElementsByTagName("body")[0];
-    bodyDOM.appendChild(div_for_all_Responses);
+    containerDiv.appendChild(div_for_all_Responses);
 
     // default panel
     var  panel_default = document.createElement("div");
@@ -86,10 +116,16 @@ function displayQuestionsAndAnswers(questionsList,optionType,panelHeading,radioO
 
     //add header
     createRadioOptions(panel_table,optionType);
-
+    counterOE=0;
     for (questionAnswer of questionsList) {
+        if(counterOE%2 ==0){
+            oddOrEven=false;
+        }else{
+           oddOrEven=true; 
+        }
     	//visualize questions 
-    	createTableRow(panel_table,questionAnswer,optionType,radioOrNot);
+    	createTableRow(panel_table,questionAnswer,optionType,radioOrNot,oddOrEven);
+        counterOE=counterOE+1
 
     }
 
@@ -99,7 +135,7 @@ function displayQuestionsAndAnswers(questionsList,optionType,panelHeading,radioO
 
 
 //show all the responses when the response toggle  button is clicked
-function showAllResponses(sectionName){
+function showAllResponses(sectionName,containerDiv){
 	if (sectionName=='BPSC'){
 		//add all subsections ittitability, inflexibility and difficulty with routines
 		allTheAnswers=(data[month][listOfSections[i]]["Irritability"]["questions"]).concat((data[month][listOfSections[i]]["Inflexibility"]["questions"])).concat((data[month][listOfSections[i]]["Difficulty with Routines"]["questions"]));
@@ -112,42 +148,42 @@ function showAllResponses(sectionName){
 
 	//display all questions and answer for the array
 	if (sectionName=='BPSC'){
-		displayQuestionsAndAnswers(allTheAnswers,BPSC_allQuestion,'BPSC',true);
+		displayQuestionsAndAnswers(allTheAnswers,BPSC_allQuestion,containerDiv,'BPSC',true);
 	}else if (sectionName=='PPSC' ){
 		//PPSC and Parent's concers have the same option
-		displayQuestionsAndAnswers(allTheAnswers,PPSC_allQuestion,'PPSC',true);
+		displayQuestionsAndAnswers(allTheAnswers,PPSC_allQuestion,containerDiv,'PPSC',true);
 
 	}else if ( sectionName=='Parent Concerns'){
-		displayQuestionsAndAnswers(allTheAnswers,parent_concern_allQuestion,'Parent Concerns',true);
+		displayQuestionsAndAnswers(allTheAnswers,parent_concern_allQuestion,containerDiv,'Parent Concerns',true);
 
 	}else if (sectionName=='Development Milestones'){
-		displayQuestionsAndAnswers(allTheAnswers,developmental_milestones_allQuestion,'Development Milestones',true);
+		displayQuestionsAndAnswers(allTheAnswers,developmental_milestones_allQuestion,containerDiv,'Development Milestones',true);
 
 	}else if (sectionName=='POSI'){
-		displayQuestionsAndAnswers(allTheAnswers.slice(0 ,1),POSI_firstQuestion,'POSI',true);
-		displayQuestionsAndAnswers(allTheAnswers.slice(1,5),POSI_secondToFifthQuestion,'',true);
-		displayQuestionsAndAnswers(allTheAnswers.slice(5,6),POSI_sixth,'',false);
-		displayQuestionsAndAnswers(allTheAnswers.slice(6,7),POSI_seventh,'',false);
+		displayQuestionsAndAnswers(allTheAnswers.slice(0 ,1),POSI_firstQuestion,containerDiv,'POSI',true);
+		displayQuestionsAndAnswers(allTheAnswers.slice(1,5),POSI_secondToFifthQuestion,containerDiv,'',true);
+		displayQuestionsAndAnswers(allTheAnswers.slice(5,6),POSI_sixth,containerDiv,'',false);
+		displayQuestionsAndAnswers(allTheAnswers.slice(6,7),POSI_seventh,containerDiv,containerDiv,'',false);
 		
 	}else if (sectionName=='Emotional Changes With A New Baby'){
-		displayQuestionsAndAnswers(allTheAnswers.slice(0 ,1),EmotionalChanges_first,'',true);
-		displayQuestionsAndAnswers(allTheAnswers.slice(1 ,2),EmotionalChanges_second,'',true);
- 		displayQuestionsAndAnswers(allTheAnswers.slice(2 ,3),EmotionalChanges_third,'',true);
- 		displayQuestionsAndAnswers(allTheAnswers.slice(3 ,4),EmotionalChanges_fourth,'',true);
- 		displayQuestionsAndAnswers(allTheAnswers.slice(4 ,5),EmotionalChanges_fifth,'',true);
- 		displayQuestionsAndAnswers(allTheAnswers.slice(5 ,6),EmotionalChanges_sixth,'',true);
- 		displayQuestionsAndAnswers(allTheAnswers.slice(6 ,7),EmotionalChanges_seventh,'',true);
- 		displayQuestionsAndAnswers(allTheAnswers.slice(7 ,8),EmotionalChanges_eighth,'',true);
- 		displayQuestionsAndAnswers(allTheAnswers.slice(8 ,9),EmotionalChanges_ninth,'',true);
- 		displayQuestionsAndAnswers(allTheAnswers.slice(9 ,10),EmotionalChanges_tenth,'',true);
+		displayQuestionsAndAnswers(allTheAnswers.slice(0 ,1),EmotionalChanges_first,containerDiv,'',true);
+		displayQuestionsAndAnswers(allTheAnswers.slice(1 ,2),EmotionalChanges_second,containerDiv,'',true);
+ 		displayQuestionsAndAnswers(allTheAnswers.slice(2 ,3),EmotionalChanges_third,containerDiv,'',true);
+ 		displayQuestionsAndAnswers(allTheAnswers.slice(3 ,4),EmotionalChanges_fourth,containerDiv,'',true);
+ 		displayQuestionsAndAnswers(allTheAnswers.slice(4 ,5),EmotionalChanges_fifth,containerDiv,'',true);
+ 		displayQuestionsAndAnswers(allTheAnswers.slice(5 ,6),EmotionalChanges_sixth,containerDiv,'',true);
+ 		displayQuestionsAndAnswers(allTheAnswers.slice(6 ,7),EmotionalChanges_seventh,containerDiv,'',true);
+ 		displayQuestionsAndAnswers(allTheAnswers.slice(7 ,8),EmotionalChanges_eighth,containerDiv,'',true);
+ 		displayQuestionsAndAnswers(allTheAnswers.slice(8 ,9),EmotionalChanges_ninth,containerDiv,'',true);
+ 		displayQuestionsAndAnswers(allTheAnswers.slice(9 ,10),EmotionalChanges_tenth,containerDiv,'',true);
 
 	}else if (sectionName=='Family Questions'){
-		displayQuestionsAndAnswers(allTheAnswers.slice(0 ,5),familyQuestions_OneToFive,'',true);
+		displayQuestionsAndAnswers(allTheAnswers.slice(0 ,5),familyQuestions_OneToFive,containerDiv,'',true);
 		if (allTheAnswers.length==9){
-            displayQuestionsAndAnswers(allTheAnswers.slice(5,7),familyQuestions_SixToSeven,'',true);
+            displayQuestionsAndAnswers(allTheAnswers.slice(5,7),familyQuestions_SixToSeven,containerDiv,'',true);
 		}
-		displayQuestionsAndAnswers(allTheAnswers.slice(7 ,8),familyQuestions_SecondToLast,'',true);
-        displayQuestionsAndAnswers(allTheAnswers.slice(8 ,9),familyQuestions_Last,'',true);
+		displayQuestionsAndAnswers(allTheAnswers.slice(7 ,8),familyQuestions_SecondToLast,containerDiv,'',true);
+        displayQuestionsAndAnswers(allTheAnswers.slice(8 ,9),familyQuestions_Last,containerDiv,'',true);
 
 	}else {
 		console.log ("Invalid section Name");

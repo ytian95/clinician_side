@@ -37,12 +37,26 @@ function drawSectionTitle(sectionName){
     summary_button.setAttribute('type','button');
     summary_button.className="btn btn-primary active";//change class name to make inactive
     textTitleDiv.appendChild(summary_button);
-    summary_button_text=document.createTextNode("Responses");
+    summary_button_text=document.createTextNode("Summary");
     summary_button.appendChild(summary_button_text);
 
+    // //on click methods for the response-summary button pair
+    response_button.onclick =function onClick(event){
+        //console.log("clicked");
+        event.target.nextSibling.className="btn btn-primary";
+        //show summary
+        console.log($(event.target).nextAll(".display_box_for_all_responses"));
+        $(event.target).nextAll(".display_box_for_all_responses").show();
+        $(event.target).nextAll("svg").hide();
+    }
 
+
+    
 
 }
+
+
+
 //visualize response for sections with no charts
 function visualizeListResponses(sectionName){
     //get questions
@@ -71,7 +85,7 @@ function visualizeListResponses(sectionName){
         li_for_question.appendChild(span_for_question);
          //add question
         var questionText= document.createTextNode(questionAndAnswer[0]);
-        li_for_question.appendChild(questionText);
+        
         //add icons for family questions
         if (sectionName=='Family Questions'){
             var img = document.createElement("img");
@@ -92,10 +106,10 @@ function visualizeListResponses(sectionName){
                     img.src = "domesticViolence.png";
                 }
             }
-
+            // align the symbols first
             li_for_question.appendChild(img);
         }
-
+        li_for_question.appendChild(questionText);
         //add option selected to the button display
         drawButtonOption(sectionName,qNumber,span_for_question,questionInSection.length);
     }
@@ -145,17 +159,12 @@ function drawStackedChart(sectionName){
             data: [{
                 //positive
                 barLabel: 'Dev Milestones',
-                range: 3.5
+                range: parseInt(devMilestoneScoringGuide[month], 10)
             }],
         }, {
             data: [{
                 barLabel: 'Dev Milestones',
-                range: 7
-            }],
-        }, {
-            data: [{
-                barLabel: 'Dev Milestones',
-                range: 2.75
+                range: 20 -parseInt(devMilestoneScoringGuide[month], 10)
             }],
         }
         //separate domain for PPSC
@@ -285,7 +294,7 @@ function drawStackedChart(sectionName){
         .scale(yScale)
         .orient('left');
     //colors
-    if(sectionName=='PPSC' |sectionName=='BPSC'){
+    if(sectionName=='PPSC' |sectionName=='BPSC'|sectionName=='Development Milestones'){
         //if only positive and negative screening
         colours = d3.scale.category10()
         .range(["red","green"])
@@ -409,11 +418,10 @@ function getMonthAndSections(d){
 	//console.log(listOfSections );
 }
 
-//clinician/static/scripts/D3StackedCharts/
-
-var patient_name= (document.getElementsByClassName("patient_name")[0]).id;
-//console.log(patient_name);
-d3.json("/clinician/"+patient_name+"/getpatientscore", function (error, json) {
+// var patient_name= (document.getElementsByClassName("patient_name")[0]).id;
+// //console.log(patient_name);
+// d3.json("/clinician/"+patient_name+"/getpatientscore", function (error, json) {
+d3.json("scoring.json", function (error, json) {
 	if (error){
     console.log(error);
     return
@@ -432,7 +440,7 @@ d3.json("/clinician/"+patient_name+"/getpatientscore", function (error, json) {
         //add section titles and buttons about response and summary if required
         drawSectionTitle(listOfSections[i]);
         if (listOfSections[i]=='PPSC' || listOfSections[i]=='BPSC' || listOfSections[i]=='Development Milestones' || listOfSections[i]=='Emotional Changes With A New Baby'){
-	         drawStackedChart(listOfSections[i]);
+	       drawStackedChart(listOfSections[i]);
            showAllResponses(listOfSections[i]);
         }else if ( listOfSections[i]=='Parent Concerns'|| listOfSections[i]=='Family Questions' || listOfSections[i]=='POSI'){
             //listOfSections[i]=='POSI' | listOfSections[i]=='Parent Concerns' | listOfSections[i]=='Family Questions'
@@ -444,3 +452,6 @@ d3.json("/clinician/"+patient_name+"/getpatientscore", function (error, json) {
 	}
 
 });
+
+
+

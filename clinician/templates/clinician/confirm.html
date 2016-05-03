@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
+<!-- Page that confirms activation of a user's account -->
+
+{% block header %}<h1>Confirm</h1>{% endblock %}
+
 {% block content %}
-  <p>Your account has been confirmed. Thank you</p>
-  <a href="/clinician/loggedin">Click to go to main page</a>
+<div class="charts mdl-cell--4-col login-card mdl-card mdl-shadow--6dp">
+  <div class="mdl-card__supporting-text" style="text-align:center">
+    <h3>Your account has been confirmed. Thank you</h3>
+	<a href="/clinician/loggedin">Click to go to main page</a>
+  </div>
+</div>
 {% endblock %}

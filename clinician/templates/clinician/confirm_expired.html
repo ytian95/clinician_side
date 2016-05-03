@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
-{% block content %}
+<!-- Page lets the user know their confirmation link has expired -->
 
-<p>Your confirmation has expired</p>
+{% block header %}<h1>Confirmation Expired</h1>{% endblock %}
+
+{% block content %}
+<div class="charts mdl-cell--4-col login-card mdl-card mdl-shadow--6dp">
+  <div class="mdl-card__supporting-text" style="text-align:center">
+    <h3>Sorry, but your confirmation has expired</h3>
+  </div>
+</div>
 {% endblock %}

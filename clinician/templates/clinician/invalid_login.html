@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 
+<!-- page that displays when the user enters in the wrong login information -->
+
+{% block header %}<h1>Invalid Login</h1>{% endblock %}
+
 {% block content %}
-  <h2> Your login details are invalid! </h2>
-  <p> Click <a href="/clinician/login"> here </a> to login again.</p>
+<div class="charts mdl-cell--4-col login-card mdl-card mdl-shadow--6dp">
+  <div class="mdl-card__supporting-text" style="text-align:center">
+    <h3> Your login details are invalid! </h3>
+  	<a href="/clinician/login">
+  		<input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"> Login Again </>
+  	</a>
+  </div>
+</div>
 {% endblock %}

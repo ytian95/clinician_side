@@ -1,0 +1,405 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">           
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">            
+<dom-module id="result-page">
+    <link rel="import" type="css" href="result-page.css">
+    <template>
+        <div id="message">
+        	<div class="textLine" id="line1">Thank you so much for filling out</div>
+            <div class="textLine" id="line2">the Survey of Wellbeing of Young Children</div>
+        </div>
+        
+        <iron-ajax
+        	id = "ajaxPost"
+            method = "POST"
+            url = "/send_json.php"
+            contentType = "application/json"
+            handle-as="json"
+            on-response="handleResponse1">
+        </iron-ajax>
+    
+    </template>
+    <script>
+		var jsonOfAnswers= "";
+        Polymer({
+            is: 'result-page',
+        	properties: {
+        	    questions: {
+                    type: Object,
+                    notify: true,
+                    value: {},
+                }, 
+            	version: {
+                	type: Number,
+                	notify: true,
+                	observer: 'pullQuestions',
+            	},   
+            	age: {
+            		type: Number,
+            		notify: true,
+            		value: 2,          		
+            	},  
+            	phoneNum: {
+            		type: String,
+            		notify: true,
+            		value: "",
+            	}, 
+            	name: {
+            		type: String,
+            		notify: true,
+            		value: "",
+            	},      	
+               	dmQuestions: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                },
+                dmAnswers: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                }, 
+                pcQuestions: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                },
+                pcAnswers: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                },
+                pcscore: {
+                	type: Number,
+                	notify: true,
+                	value: 0,
+                },
+                familyQuestions: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                },
+                familyAnswers: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                },
+                familyscore: {
+                	type: Array,
+                	notify: true,
+                	value: [0,0,0],
+                },
+                emoQuestions: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                },
+                emoAnswers: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                },
+                emoscore: {
+                	type: Number,
+                	notify: true,
+                	value: 0,
+                },
+                posiQuestions: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                },
+                posiAnswers: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                },
+                posiscore: {
+                	type: Number,
+                	notify: true,
+                	value: 0,
+                },
+                dmscore: {
+                	type: Number,
+                	notify: true,
+                	value: 0,
+                },
+                bpscscore: {
+                	type: Array,
+                	notify: true,
+                	value: [0,0,0],
+                },
+                bpscQuestions: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                }, 
+                bpscAnswers: {
+                    type: Array,
+                    notify: true,
+                    value: [],
+                }, 
+                sectionkeys: {
+                	type: Array,
+                	notify: true,
+                }, 
+                isSpanish: {
+            		type: Number,
+            		notify: true,
+            		value: 0,
+            		observer: 'changeTitles',
+            	},   	
+            },
+            handleResponse1: function (data) {
+                jsonOfAnswers= data.detail.response
+            },
+            pullQuestions: function (data) {
+                if (this.version){
+                    this.questions = {};
+                    swycAge=(String(this.version)).concat(" month");
+                    console.log(swycAge);
+                    this.questions = 
+                    jsonOfQuestions[swycAge]["questions"];
+                }         
+            },
+	    	_sendjson: function(){      		
+        		this.$.ajaxPost.body = {}
+        		//jsonOfAnswers[swycAge] = {}
+
+        		var swycAge=(String(this.version)).concat(" month");
+        		//console.log(swycAge);
+        		var temp = {};
+        		temp[swycAge] = {};
+
+        	    /*
+        		Development milestone/ BPSC/ PPSC/ Parent's Concern answers map:
+        		{"0": "Not at all", 
+        		 "1": "Somewhat",
+        		 "2": "Very Much",
+        		 "-1": "Skip Question"};
+        		*/        		
+        		var devSection = {};
+        		var qAndAs =  [];
+        		if(this.dmQuestions === undefined ){
+        			this.dmQuestions = [];
+        		};
+        		for (var i=0; i< this.dmQuestions.length; i++){
+        			qAndAs.push([this.dmQuestions[i], Number(this.dmAnswers[i])]);
+        		};
+        		
+        		devSection["questions"] = qAndAs;
+        		devSection["score"] = [this.dmscore];
+
+        		temp[swycAge]["Development Milestones"] = devSection;
+        		
+        		if(this.version >= 18) {
+        			//ppsc
+        			temp[swycAge]["PPSC"] = {}
+        			var ppscSection = {};
+        			var qAndAs =  [];
+        			if(this.bpscQuestions === undefined ){
+        				this.bpscQuestions = [];
+        			};
+        			for (var i=0; i< this.bpscQuestions.length; i++){
+        				qAndAs.push([this.bpscQuestions[i], Number(this.bpscAnswers[i])]);
+        			};
+        			ppscSection["questions"] = qAndAs;
+        			ppscSection["score"] = [this.bpscscore[0]];
+        			temp[swycAge]["PPSC"] = ppscSection;         				
+        		} else {
+        			//bpsc
+        			if (this.bpscQuestions !== [] && this.bpscQuestions !== undefined){
+        				temp[swycAge]["BPSC"] = {}
+        				var bpscSection1 = {};
+        				var qAndAs1 =  [];
+        				for (var i=0; i< 4; i++){
+        					qAndAs1.push([this.bpscQuestions[i], 
+        						Number(this.bpscAnswers[i])]);
+        				};
+        				bpscSection1["questions"] = qAndAs1;
+        				bpscSection1["score"] = [this.bpscscore[0]];
+        				temp[swycAge]["BPSC"]["Irritability"] = bpscSection1; 
+
+        				var bpscSection2 = {};
+        				var qAndAs2 =  [];
+        				for (var i=4; i< 8; i++){
+        					qAndAs2.push([this.bpscQuestions[i], 
+        						Number(this.bpscAnswers[i])]);
+        				};
+        				bpscSection2["questions"] = qAndAs2;
+        				bpscSection2["score"] = [this.bpscscore[1]];
+        				temp[swycAge]["BPSC"]["Inflexibility"] = bpscSection2; 
+        					
+        				var bpscSection3 = {};
+        				var qAndAs3 =  [];
+        				for (var i=8; i< 12; i++){
+        					qAndAs3.push([this.bpscQuestions[i], 
+        						Number(this.bpscAnswers[i])]);
+        				};
+        				bpscSection3["questions"] = qAndAs3;
+        				bpscSection3["score"] = [this.bpscscore[2]];
+        				temp[swycAge]["BPSC"]["Difficulty with Routines"] = bpscSection3; 
+        			};      		
+        		};
+
+        	    /*
+        		POSI answers map:
+        		Question 1:
+        		{"0": "Many times a day", 
+        		 "1": "A few times a day",
+        		 "2": "A few times a week",
+        		 "3": "less than once a week",
+        		 "4": "Never",
+        		 "-1": "Skip Question"};
+        		 
+        		 Question 2 - 5:
+        		{"0": "Always", 
+        		 "1": "Usually",
+        		 "2": "Sometimes",
+        		 "3": "Rarely",
+        		 "4": "Never",
+        		 "-1": "Skip Question"};    
+        		 
+        		 Question 6 and 7:  
+				 Every question has different answer options and answer questions can be 
+				 fetched from question.json 
+				 -1 is always Skip Question		 
+        		*/ 
+        		var posiSection = {};
+        		var posiqAndAs =  [];
+        		if(this.posiQuestions === undefined ){
+        			this.posiQuestions = [];
+        		};
+
+        		for ( var i=0; i< this.posiQuestions.length; i++){
+        			if (i < 5) {
+        				posiqAndAs.push([this.posiQuestions[i], Number(this.posiAnswers[i])]);
+        			} else {
+        				var list1 = [];
+        				for (var n=0; n< this.posiAnswers[i].length; n++){
+        					list1.push(Number(this.posiAnswers[i][n]));
+        				};
+        				posiqAndAs.push([this.posiQuestions[i], list1]);
+        			};
+        		};
+        		posiSection["questions"] = posiqAndAs;
+        		//the score is only for the second sub section
+        		posiSection["score"] = [this.posiscore];
+        		
+        		if(this.sectionkeys.indexOf("Parent's Observation of Social Interactions (POSI)") > -1){
+        			temp[swycAge]["POSI"] = posiSection;
+        		};
+        		var pcSection = {};
+        		var pcqAndAs =  [];
+        		if(this.pcQuestions === undefined ){
+        			this.pcQuestions = [];
+        		};
+        		for (var i=0; i< this.pcQuestions.length; i++){
+        			pcqAndAs.push([this.pcQuestions[i], Number(this.pcAnswers[i])]);
+        		};
+
+        		pcSection["questions"] = pcqAndAs;
+        		pcSection["score"] = [this.pcscore];
+        		if(this.sectionkeys.indexOf("Parent's Concerns") > -1){
+        			temp[swycAge]["Parent Concerns"] = pcSection;
+        		};
+
+        	    /*
+        		Family Questions answers map:
+        		Question 1 - 5:
+        		{"0": "Yes", 
+        		 "1": "No",
+        		 "-1": "Skip Question"};
+        		 
+        		 Question 6 and 7:
+        		{"0": "Not at all", 
+        		 "1": "Several days",
+        		 "2": "More than half the days",
+        		 "3": "Nearly everyday",
+        		 "-1": "Skip Question"};    
+        		 
+        		 Question 8 and 9:  
+        		{"0": "No tension", 
+        		 "1": "Some tension",
+        		 "2": "A lot of tension",
+        		 "3": "Not applicable",
+        		 "-1": "Skip Question"};   		 
+        		*/        		
+        		var familySection = {};
+        		var familyqAndAs =  [];
+        		if(this.familyQuestions === undefined ){
+        			this.familyQuestions = [];
+        		};
+        		for (var i=0; i< this.familyQuestions.length; i++){
+        			familyqAndAs.push([this.familyQuestions[i], 
+        				Number(this.familyAnswers[i])]);
+        		};
+        		
+        		familySection["questions"] = familyqAndAs;
+        		familySection["score"] = this.familyscore;
+				if(this.sectionkeys.indexOf("Family Questions") > -1){
+        			temp[swycAge]["Family Questions"] = familySection;  
+        		};      		
+
+        		/*
+				Emotional Changes With A New Baby Answers:
+				Every question has different answer options and answer questions can be 
+				fetched from question.json
+				-1 is always Skip Question 		 
+        		*/ 	
+        		var emoSection = {};
+        		var emoqAndAs =  [];
+        		if(this.emoQuestions === undefined ){
+        			this.emoQuestions = [];
+        		};
+        		for (i=0; i< this.emoQuestions.length; i++){
+        			emoqAndAs.push([this.emoQuestions[i], Number(this.emoAnswers[i])]);
+        		};
+        		emoSection["questions"] = emoqAndAs;
+        		emoSection["score"] = [this.emoscore];
+        		if(this.sectionkeys.indexOf("Emotional Changes With A New Baby") > -1){
+        			temp[swycAge]["Emotional Changes With A New Baby"] = emoSection;       		
+        		};
+        		
+        		//console.log(temp);
+        		var allInfo = {};
+        		allInfo["info"] = temp;
+
+          		var nameFormat = this.name.trim();
+        		//console.log(nameFormat);
+        		while(nameFormat.indexOf(' ') !== -1){
+        			var index = nameFormat.indexOf(' ');
+        			nameFormat = nameFormat.substr(0, index) + '_' + 
+        				nameFormat.substr(index+1);
+        		};
+				nameFormat = nameFormat.toLowerCase();
+        		//console.log(nameFormat);
+        		
+        		var phone = this.phoneNum.trim();
+        		//console.log(phone);
+        		allInfo["name"] = nameFormat;
+				allInfo["phone"] = phone;	     
+        		
+
+        		this.$.ajaxPost.body = JSON.stringify(allInfo);      		
+        		this.$.ajaxPost.generateRequest();
+		},
+        changeTitles: function(){
+        	if(parseInt(this.isSpanish) === 1 ){
+        		this.$$("#line1").innerHTML 
+        			= "Muchas gracias para su participación en";
+        		this.$$("#line2").innerHTML  
+        			= "la Encuesta del Bienestar de Niños Pequeños";
+        	} else {
+        		this.$$("#line1").innerHTML 
+        			= "Thank you so much for filling out";
+        		this.$$("#line2").innerHTML  
+        			= "the Survey of Wellbeing of Young Children";
+        	};		
+        }   	
+        });
+    </script>
+</dom-module>

@@ -1,3 +1,26 @@
+.screeningResultContainer{
+    text-align: center;
+    font-family: times,;
+    font-size: 20px;
+    width: 10%;
+    color: black;
+    display: inline;
+    margin-left: 20%;
+}
+.btn-group {
+    margin:5%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+.sectionTitles{
+    margin-top: 5%;
+}
+#row_border{
+    border-bottom: 1pt solid black;
+}
+.table tr .textToCenter{
+    text-align: center;
+}
 .familyQuestionIcon{
    width: 5%;
   height: 3%;
@@ -13,9 +36,6 @@
   margin-left:15%;
   margin-top: 40px;
  /* consistent with margin for other dynamicaly generated sections*/
-}
-.btn-group {
-    margin: 5%;
 }
 
 .axis path, .axis line {

@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 
+<!-- page that displays when the user when the user has successfully created -->
+<!-- valid registration information -->
+
+{% block header %}<h1>Registration</h1>{% endblock %}
+
 {% block content %}
-  <h2>You have registered!</h2>
-  <p>Click <a href="/clinician/login/">here</a> to login again</p>
+<div class="charts mdl-cell--4-col login-card mdl-card mdl-shadow--6dp">
+  <div class="mdl-card__supporting-text" style="text-align:center">
+    <h3>You have registered!</h3>
+  	<a href="/clinician/login">
+  		<input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"> Login Again </>
+  	</a>
+  </div>
+</div>
 {% endblock %}
